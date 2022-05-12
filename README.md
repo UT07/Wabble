@@ -1,4 +1,4 @@
-# word_it_up
+# Wabble
 
 Wabble is a cross platform android and iOS puzzle solving game made on Flutter. In the game, user will have 6 guesses to solve the word of the day. Each time user get a letter correct, the tile will turn yellow if it is in the word or green if it is in the right spot. 
 
