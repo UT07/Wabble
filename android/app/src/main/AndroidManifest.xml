@@ -2,7 +2,7 @@
     package="com.example.word_it_up">
    <application
         android:label="word_it_up"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/wabble_logo">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
