@@ -127,7 +127,7 @@ class _WabbleScreenState extends State<WabbleScreen> {
         SnackBar(
           content: const Text(
             'You won!!',
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(color: Colors.white),
           ),
           dismissDirection: DismissDirection.none,
           duration: const Duration(days: 2),
