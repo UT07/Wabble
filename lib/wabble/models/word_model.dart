@@ -17,7 +17,7 @@ class Word extends Equatable {
 
   void removeLetter() {
     final lastLetterIndex =
-        letters.lastIndexWhere((element) => element.val.isEmpty);
+        letters.lastIndexWhere((element) => element.val.isNotEmpty);
     if (lastLetterIndex != -1) {
       letters[lastLetterIndex] = Letter.empty();
     }
