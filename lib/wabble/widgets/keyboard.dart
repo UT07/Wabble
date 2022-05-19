@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/letter_models.dart';
 
 const _qwerty = [
   ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -12,10 +13,12 @@ class Keyboard extends StatelessWidget {
     required this.onKeyTapped,
     required this.onEnterTapped,
     required this.onDeleteTapped,
+    required this.letters,
   }) : super(key: key);
   final void Function(String) onKeyTapped;
   final VoidCallback onDeleteTapped;
   final VoidCallback onEnterTapped;
+  final Set<Letter> letters;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,10 +34,16 @@ class Keyboard extends StatelessWidget {
                   } else if (letter == 'ENTER') {
                     return _KeyboardButton.enter(onTap: onEnterTapped);
                   }
+                  final letterKey = letters.firstWhere(
+                    (element) => element.val == letter,
+                    orElse: () => Letter.empty(),
+                  );
                   return _KeyboardButton(
                     onTap: () => onKeyTapped(letter),
                     letter: letter,
-                    backgroundColor: Colors.grey,
+                    backgroundColor: letterKey != Letter.empty()
+                        ? letterKey.backgroundColor
+                        : Colors.grey,
                   );
                 },
               ).toList(),

@@ -27,6 +27,7 @@ class _WabbleScreenState extends State<WabbleScreen> {
   Word _solution = Word.fromString(
     fiveLetterWords[Random().nextInt(fiveLetterWords.length)].toUpperCase(),
   );
+  final Set<Letter> _keyboardLetters = {};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +53,7 @@ class _WabbleScreenState extends State<WabbleScreen> {
             onKeyTapped: _onKeyTapped,
             onEnterTapped: _onEnterTapped,
             onDeleteTapped: _onDeleteTapped,
+            letters: _keyboardLetters,
           )
         ],
       ),
@@ -75,6 +77,7 @@ class _WabbleScreenState extends State<WabbleScreen> {
         _currentWord != null &&
         !_currentWord!.letters.contains(Letter.empty())) {
       _gameStatus = GameStatus.submitting;
+
       for (var i = 0; i < _currentWord!.letters.length; i++) {
         final currentWordLetter = _currentWord!.letters[i];
         final currentSolutionLetter = _solution.letters[i];
@@ -90,6 +93,15 @@ class _WabbleScreenState extends State<WabbleScreen> {
                 currentWordLetter.copyWith(status: LetterStatus.notInWord);
           }
         });
+        final letter = _keyboardLetters.firstWhere(
+          (element) => element.val == currentWordLetter.val,
+          orElse: () => Letter.empty(),
+        );
+        if (letter.status != LetterStatus.correct) {
+          _keyboardLetters
+              .removeWhere((element) => element.val == currentWordLetter.val);
+          _keyboardLetters.add(_currentWord!.letters[i]);
+        }
       }
       _checkIfWinOrLoss();
     }
@@ -153,6 +165,7 @@ class _WabbleScreenState extends State<WabbleScreen> {
       _solution = Word.fromString(
         fiveLetterWords[Random().nextInt(fiveLetterWords.length)].toUpperCase(),
       );
+      _keyboardLetters.clear();
     });
   }
 }
